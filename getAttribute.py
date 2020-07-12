@@ -1,6 +1,10 @@
 import hachoir
 import subprocess
 import datetime
+import os
+from os import listdir
+from os.path import isfile, join
+
 def get_media_properties(filename):
 
     result = subprocess.Popen(['hachoir-metadata', filename, '--raw', '--level=9'],
@@ -8,11 +12,27 @@ def get_media_properties(filename):
 
     results = result.stdout.read().decode('utf-8').split('\r\n')
 
-    properties = {}
     for item in results:
         if '- creation_date:' in item:
             return(item[16:])
 
-path = 'D:/Users/79143/видео Артём/5 секунд/данные/март/IMG_20200711_020001_427.mp4'
+def change_tittle(path,newTittle, oldTittle):
+    newTittle = newTittle.replace(':','-')
+    os.rename(path+oldTittle,path+newTittle)
 
-print(get_media_properties(path))
+def getFilesName(path):
+    onlyfiles = [f for f in listdir(path) if isfile(join(path, f))]
+    return onlyfiles
+
+def changeAllFilesInPath(path):
+    filesName = getFilesName(path)
+    for i in filesName:
+        print(i)
+        try:
+            newTittle = get_media_properties(path+i)
+            change_tittle(path,newTittle+".mp4",i)
+        except:
+            continue
+
+path = input("Input path: ")
+changeAllFilesInPath(path)
