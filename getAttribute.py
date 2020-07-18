@@ -4,6 +4,7 @@ import datetime
 import os
 from os import listdir
 from os.path import isfile, join
+import sys
 
 def get_media_properties(filename):
 
@@ -27,12 +28,13 @@ def getFilesName(path):
 def changeAllFilesInPath(path):
     filesName = getFilesName(path)
     for i in filesName:
-        print(i)
         try:
             newTittle = get_media_properties(path+i)
             change_tittle(path,newTittle+".mp4",i)
+            print(f"Success: {i} ")
         except:
+            print(f"ERROR: {i} ", sys.exc_info()[0])
             continue
 
-path = input("Input path: ")
+path = input("Input path: ").replace('\\','/')
 changeAllFilesInPath(path)
