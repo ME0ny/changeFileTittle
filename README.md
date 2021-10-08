@@ -20,3 +20,13 @@ Gets the path to the folder. Returns the list of names of all files in the folde
 
 changeAllFilesInPath(path):
 Gets the path to the folder. Program operation mode. Changes the name of all files in the folder to the date and time of creation of this file.
+
+---
+
+You can use bash script execute file cd_photo.sh. This script move all file highlighted masks to months directory | work in Unix system
+Youd should execute file in directory, where is your files, which you want move.
+1. Run script
+2. write mask for file
+3. Wait ...
+
+All files will move to directory based on the time of creation
